@@ -27,9 +27,6 @@ public class OrderServiceSupport {
         List<OrderLine> orderLines = new ArrayList<>();
         for (Product product : products) {
             for (OrderLineRequest olr : orderLineRequests) {
-                if(olr.getAmount() <= 0) {
-                    throw new RuntimeException("주문 상품의 개수가 0 이하입니다.");
-                }
                 if (Objects.equals(product.getId(), olr.getProductId())) {
                     product.purchased(olr.getAmount());
                     orderLines.add(new OrderLine(order, product, olr.getAmount()));

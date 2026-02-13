@@ -1,9 +1,10 @@
-package com.example.sparta.service;
+package com.example.sparta.mytest;
 
 import com.example.sparta.dto.OrderLineRequest;
 import com.example.sparta.entity.Order;
 import com.example.sparta.entity.OrderLine;
 import com.example.sparta.entity.Product;
+import com.example.sparta.service.OrderServiceSupport;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +13,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-class OrderServiceSupportTest {
+class MyOrderServiceSupportTest {
 
     List<Product> productList;
     List<OrderLineRequest> orderLines;
@@ -89,22 +90,5 @@ class OrderServiceSupportTest {
         assertThat(e.getMessage()).isEqualTo("티셔츠의 상품 재고가 부족합니다.");
     }
 
-    @Test
-    void 실패_주문수량이_0이하() {
-        //given
-        orderLines = List.of(
-                new OrderLineRequest(1L, 0L),
-                new OrderLineRequest(2L, 15L),
-                new OrderLineRequest(3L, 20L)
 
-        );
-
-        //when
-        RuntimeException e = assertThrows(RuntimeException.class,
-                () -> OrderServiceSupport.buildOrderLines(productList, orderLines, order));
-
-        //then
-        assertThat(e.getMessage()).isEqualTo("주문 상품의 개수가 0 이하입니다.");
-
-    }
 }

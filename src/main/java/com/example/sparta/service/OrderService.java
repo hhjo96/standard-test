@@ -27,6 +27,10 @@ public class OrderService {
 
     @Transactional
     public Order create(OrderCreateRequest request) {
+        if(request.getOrderLines().stream().anyMatch(o1 -> o1.getAmount() <= 0)) {
+            throw new RuntimeException("주문 상품의 개수가 0 이하입니다.");
+        }
+
         // 주문 생성
         Order order = orderRepository.save(new Order(request.getTotalPrice()));
 
